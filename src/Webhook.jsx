@@ -1,20 +1,22 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-class Webhook extends React.Component {
-    handleWebhook() {
-        // Send a request to the endpoint on the local machine
-        fetch('http://focus-pocus.ro/webhook', { method: 'POST' })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-    }
-    render() {
-        return (
-            <div>
-                <button onClick={this.handleWebhook}>Run Script</button>
-            </div>
-        );
-    }
+function Webhook() {
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/sync') {
+            fetch('http://localhost/sync.sh')
+                .then(response => response.text())
+                .then(script => {
+                    // execute the script here
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }, [location]);
+
+    return <div>...</div>;
 }
-
 export default Webhook;
