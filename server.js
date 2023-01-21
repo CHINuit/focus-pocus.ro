@@ -1,27 +1,28 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const secret = 'deploy';
+const { execSync } = require("child_process");
 
-app.get('/execute-command', (req, res) => {
-    const receivedSecret = req.headers['x-hub-signature'];
-    if (receivedSecret !== secret) {
-        res.status(401).send('Unauthorized');
-        return;
-    }
-
-    // execute your command here
-    // for example:
-    const { exec } = require('child_process');
-    exec('sh /sync.sh', (err, stdout, stderr) => {
-        if (err) {
-            console.error(err);
-            return;
+app.use(express.json())
+app.post("/git-webhook", (req, res) => {
+    try {
+        //Validate the token
+        const token = req.headers['x-hub-signature']
+        if (!token || token !== 'sha1=mysecret') {
+            res.send("Invalid token")
+            return
         }
-        console.log(stdout);
-    });
-    res.send('Command executed');
+
+        process.chdir("/var/www/");
+        execSync("git clone https://github.com/CHINuit/focus-pocus.ro.git");
+        process.chdir("/var/www/focus-pocus.ro/");
+        execSync("git pull https://github.com/CHINuit/focus-pocus.ro.git");
+        res.send("Repository cloned and pulled successfully.");
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred while trying to clone and pull the repository.");
+    }
 });
 
-app.listen(9000, () => {
-    console.log('Server listening on port 9000');
+app.listen(5000, () => {
+    console.log("Server started at port 5000");
 });
