@@ -17,6 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
     "sync": "cd /var/www/focus-pocus.ro && sudo git pull origin master",
     "start:server": "node server.js",
     "start": "react-scripts start",
