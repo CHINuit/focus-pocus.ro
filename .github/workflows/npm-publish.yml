@@ -13,4 +13,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - run: npm run sync
+      - run: npm run clone
