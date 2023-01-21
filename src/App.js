@@ -5,7 +5,7 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:9000/execute-command', {
       headers: {
-        'x-hub-signature': 'your_secret_key'
+        'x-hub-signature': 'deploy'
       }
     })
       .then(response => {
