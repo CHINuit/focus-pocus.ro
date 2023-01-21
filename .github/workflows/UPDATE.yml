@@ -7,19 +7,12 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up SSH key
-      uses: actions/setup-ssh@v1.1.0
-      with:
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Create directory if it doesn't exist
       run: |
         ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@${{ secrets.HOST }} "sudo mkdir -p /var/www/focus-pocus.ro"
     - name: Update React App
-      uses: actions/ssh-action@v1
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      env:
-        SSH_COMMAND: 'sudo -S cd /var/www/focus-pocus.ro && git pull origin main && npm ci && npm run build'
-    - run: ${{ env.SSH_COMMAND }}
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@${{ secrets.HOST }} "sudo -S cp -r . /var/www/focus-pocus.ro"
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@${{ secrets.HOST }} "cd /var/www/focus-pocus.ro && npm ci && npm run build"
