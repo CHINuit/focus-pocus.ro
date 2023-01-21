@@ -7,7 +7,7 @@ app.post("/git-webhook", (req, res) => {
     try {
         //Validate the token
         const token = req.headers['x-hub-signature']
-        if (!token || token !== 'sha1=mysecret') {
+        if (!token || token !== 'sha1=deploy') {
             res.send("Invalid token")
             return
         }
