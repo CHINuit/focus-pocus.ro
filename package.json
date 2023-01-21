@@ -17,7 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "sync": "cd /var/www/focus-pocus.ro && git pull origin master",
+    "sync": "cd /var/www/focus-pocus.ro && sudo git pull origin master",
     "start:server": "node server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
