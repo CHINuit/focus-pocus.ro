@@ -1,13 +1,19 @@
 const express = require('express');
 const app = express();
 const child_process = require('child_process');
+const secret = 'deploy';
 
 // Define the route to execute commands
 app.get('/execute-command', (req, res) => {
-    // The command you want to execute
-    const command = 'cd /var/www/focus-pocus.ro/ && sudo git pull https://github.com/CHINuit/focus-pocus.ro.git';
-    // Execute the command
-    child_process.exec(command, (error, stdout, stderr) => {
+    const receivedSecret = req.headers['x-hub-signature'];
+    if (receivedSecret !== secret) {
+        res.status(401).send('Unauthorized');
+        return;
+    }
+    // The path to the .sh file
+    const filePath = '/var/www/focus-pocus.ro/build/sync.sh';
+    // Execute the file
+    child_process.execFile(filePath, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
@@ -18,6 +24,4 @@ app.get('/execute-command', (req, res) => {
     res.send('Command executed');
 });
 
-app.listen(9000, () => {
-    console.log('Server started on port 9000');
-});
+app.listen(9000);
