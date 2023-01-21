@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function App() {
   useEffect(() => {
-    axios.get('https://localhost:9000/execute-command', {
+    axios.get('http://localhost:9000/execute-command', {
       headers: {
-        'x-hub-signature': 'deploy'
+        'x-hub-signature': 'your_secret_key'
       }
     })
       .then(response => {
