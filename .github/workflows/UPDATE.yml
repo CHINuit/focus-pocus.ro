@@ -2,7 +2,7 @@ name: Update React App
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   update:
     runs-on: ubuntu-latest
