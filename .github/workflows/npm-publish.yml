@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to EC2
 
 on:
   push:
@@ -8,22 +8,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
+    - name: Checkout code
       uses: actions/checkout@v2
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.2.2
       with:
-        node-version: 14
-    - name: Install Dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build
-    - name: SSH-Agent
-      uses: webfactory/ssh-agent@v0.4.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Deploy
-      run: |
-        ssh -o "StrictHostKeyChecking no" ubuntu@3.70.135.144 "mkdir -p /var/www/focus-pocus.ro"
-        scp -r -o "StrictHostKeyChecking no" build/* ubuntu@3.70.135.144:/var/www/focus-pocus.ro
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /var/www/
+          sudo git clone https://github.com/CHINuit/focus-pocus.ro 
+          sudo cd /var/www/focus-pocus.ro
+          git pull https://github.com/CHINuit/focus-pocus.ro
+          npm install
+          npm run build
+          node server.js
