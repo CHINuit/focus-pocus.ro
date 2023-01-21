@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function App() {
   useEffect(() => {
-    axios.get('http://focus-pocus.ro:9000/execute-command', {
+    axios.get('https://focus-pocus.ro:9000/execute-command', {
       headers: {
         'x-hub-signature': 'deploy'
       }
