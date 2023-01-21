@@ -13,5 +13,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - run: cd /var/www/focus-pocus.ro
-      -run: git pull https://github.com/CHINuit/focus-pocus.ro.git
+      - run: npm run sync
