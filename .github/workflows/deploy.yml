@@ -1,0 +1,13 @@
+name: focus-pocus.ro
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Run script
+      run: cd /var/www/ && git clone https://github.com/CHINuit/focus-pocus.ro && cd /var/www/focus-pocus.ro && chmod +x sync.sh && ./sync.sh
