@@ -14,3 +14,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
+      - run: cd /var/www/focus-pocus.ro
+      -run: git pull https://github.com/CHINuit/focus-pocus.ro.git
