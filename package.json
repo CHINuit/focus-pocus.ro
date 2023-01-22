@@ -8,8 +8,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.7.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "removeold": "if [  -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
@@ -18,7 +17,7 @@
     "sync": "cd /var/www/focus-pocus.ro && sudo git config --global user.name --add Site && sudo git config --global user.email --add site@focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git config --global pull.rebase false && sudo git pull --force origin master",
     "clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
     "clean2": "if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules; fi",
-    "install": "cd /var/www/focus-pocus.ro && sudo  npm install yarn && npm audit fix  && sudo yarn install && npm audit fix",
+    "njsi": "cd /var/www/focus-pocus.ro && sudo npm install -g npm  && sudo  npm install -g yarn && sudo  npm audit fix --force && sudo yarn install && sudo npm audit fix --force",
     "bld": "sudo npm run start && sudo npm run build",
     "start:server": "node server.js",
     "start": "react-scripts start",
