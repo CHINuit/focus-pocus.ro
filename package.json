@@ -14,7 +14,7 @@
   "scripts": {
     "removeold": "if [  -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
     "clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
-    "finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then git remote add focus-pocus https://github.com/CHINuit/focus-pocus.ro.git; else git remote set-url focus-pocus https://github.com/CHINuit/focus-pocus.ro.git; fi",
+    "finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then git remote add focus-pocus https://github.com/CHINuit/focus-pocus.ro.git; fi",
     "sync": "cd /var/www/focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git pull --force origin master",
     "clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
     "clean2": "if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules; fi",
