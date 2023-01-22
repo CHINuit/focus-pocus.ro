@@ -17,8 +17,8 @@
     "start:server": "node server.js",
     "start": "react-scripts start",
     "install": "cd /var/www/focus-pocus.ro && sudo chmod -R 755 /var/www/focus-pocus.ro/node_modules && sudo npm install && sudo npm audit fix",
-    "build": " sudo react-scripts start && sudo  react-script build",
-    "test": "react-scripts test",
+    "bld": "sudo npm run start && sudo  bpm run build",
+    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
