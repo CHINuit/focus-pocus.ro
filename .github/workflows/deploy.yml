@@ -16,4 +16,4 @@ jobs:
       - run: npm run clone
       - run: npm run sync
       - run: npm run install
-      - run: npm run build
+      - run: npm run bld
