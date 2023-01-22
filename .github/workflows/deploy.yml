@@ -19,6 +19,7 @@ jobs:
       - run: npm run finit
       - run: npm run sync
       - run: npm run clean
-      - run: npm run clean2
+      #delete /node modules
+      # - run: npm run clean2
       - run: npm run install
       - run: npm run bld
