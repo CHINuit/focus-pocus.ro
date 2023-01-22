@@ -15,4 +15,5 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm run clone
       - run: npm run sync
+      - run: npm run install
       - run: npm run build
