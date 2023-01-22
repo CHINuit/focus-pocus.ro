@@ -16,9 +16,9 @@
     "sync": "cd /var/www/focus-pocus.ro &&sudo git stash save --keep-index && sudo git pull --force origin master",
     "start:server": "node server.js",
     "start": "react-scripts start",
-    "install": "cd /var/www/focus-pocus.ro && sudo chmod -R 755 /var/www/focus-pocus.ro/node_modules && sudo npm install && sudo npm audit fix",
-    "bld": "sudo npm run start && sudo  bpm run build",
     "build": "react-scripts build",
+    "install": "cd /var/www/focus-pocus.ro && sudo chmod -R 755 /var/www/focus-pocus.ro/node_modules && sudo npm install && sudo npm audit fix",
+    "bld": "sudo npm run start && sudo npm run build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
