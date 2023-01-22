@@ -17,7 +17,7 @@
     "start:server": "node server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "install": "cd /var/www/focus-pocus.ro && sudo if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules fi && sudo  npm install yarn --global && sudo yarn install --global && sudo  npm audit fix",
+    "install": "cd /var/www/focus-pocus.ro && sudo if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules fi && sudo  npm install yarn -g && sudo yarn install -g && sudo  npm audit fix",
     "bld": "sudo npm run start && sudo npm run build",
     "eject": "react-scripts eject"
   },
