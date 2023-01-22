@@ -21,7 +21,7 @@
     "sync": "cd /var/www/focus-pocus.ro &&sudo git stash save --keep-index && sudo git pull --force origin master",
     "start:server": "node server.js",
     "start": "react-scripts start",
-    "build": "cd /var/www/focus-pocus.ro && sudo npm i && npm audit fix && sudo react-scripts build",
+    "build": "cd /var/www/focus-pocus.ro && sudo npm install && npm audit fix && npm run start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
