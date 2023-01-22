@@ -18,7 +18,7 @@
   },
   "scripts": {
     "clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
-    "sync": "cd /var/www/focus-pocus.ro &&sudo git merge origin/master && sudo git pull --force origin master",
+    "sync": "cd /var/www/focus-pocus.ro &&sudo git reset -- hard && sudo git pull --force origin master",
     "start:server": "node server.js",
     "start": "react-scripts start",
     "build": "cd /var/www/focus-pocus.ro && sudo npm i && npm audit fix && sudo react-scripts build",
