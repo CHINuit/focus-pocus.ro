@@ -17,7 +17,7 @@
     "start:server": "node server.js",
     "start": "react-scripts start",
     "install": "cd /var/www/focus-pocus.ro && sudo chmod -R 755 /var/www/focus-pocus.ro/node_modules && sudo npm install && sudo npm audit fix",
-    "build": " sudo npm run-script build",
+    "build": " sudo npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
