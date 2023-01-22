@@ -1,5 +1,9 @@
 .body {
   display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .link:link {
@@ -12,4 +16,5 @@
   height: 100vh;
   align-content: center;
   align-items: center;
+  justify-items: center;
 }
