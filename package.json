@@ -13,7 +13,7 @@
   },
   "scripts": {
     "clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
-    "sync": "cd /var/www/focus-pocus.ro && sudo git init && sudo git remote add -m master https://github.com/CHINuit/focus-pocus.ro && sudo git stash save --keep-index && sudo git pull --force origin master",
+    "sync": "cd /var/www/focus-pocus.ro && sudo git init && sudo git stash save --keep-index && sudo git pull --force origin master",
     "clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
     "clean2": "if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules; fi",
     "install": "cd /var/www/focus-pocus.ro && sudo  npm install yarn -g && sudo yarn install -g && sudo  npm audit fix",
