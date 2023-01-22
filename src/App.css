@@ -1,20 +1,10 @@
-.body {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: flex-start;
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+
 }
 
-.link:link {
-  color: yellow;
-}
-
-.flex {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  align-content: center;
-  align-items: center;
-  justify-items: center;
+body::-webkit-scrollbar {
+  display: none;
 }

@@ -8,11 +8,13 @@
 .video-background {
 
     position: absolute;
-    top: 0;
+    top: -12vh;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 125vh;
     overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .video-background video {
@@ -21,8 +23,12 @@
 }
 
 .content {
+    flex-direction: column;
+    display: flexbox;
     position: relative;
     z-index: 1;
+    align-items: flex-end;
+    align-content: flex-end;
     /* Your content styles here */
 }
 
@@ -31,9 +37,9 @@
     /* enables flexbox layout */
     flex-direction: column;
     /* aligns child elements vertically */
-    align-items: center;
+    align-items: flex-end;
     /* centers child elements horizontally */
-    justify-content: center;
+    justify-content: flex-end;
     /* centers child elements vertically */
     position: relative;
     /* enables absolute positioning for child elements */
@@ -41,7 +47,7 @@
     /* stretch the container to take the full height of the viewport */
 }
 
-.video-container .links {
+.flex {
     position: absolute;
     /* positions links at the center bottom of the video container */
     bottom: 0;
@@ -49,27 +55,28 @@
     /* stretch the links to take the full width of the container */
     display: flex;
     /* enables horizontal alignment for child elements */
-    align-items: center;
+    align-items: flex-end;
     /* centers child elements vertically */
     justify-content: center;
     /* centers child elements horizontally */
 }
 
-.video-container .links a {
+
+a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
     /* adds space between links */
 }
 
-.video-container .links a.yellow {
-    background-color: yellow;
+a.yellow {
+    color: yellow;
     padding: 5px 10px;
     /* adds padding to the link */
 }
 
-.video-container .links a.red {
-    background-color: red;
+a.red {
+    color: red;
     padding: 5px 10px;
     /* adds padding to the link */
 }
