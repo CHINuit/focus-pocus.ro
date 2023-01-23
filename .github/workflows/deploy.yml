@@ -35,6 +35,16 @@ jobs:
         echo "Installing npm"
         sudo apt-get install npm -y
         fi
+    
+    - uses: actions/checkout@v3
+    - name: CertBot
+      run: |
+        if sudo snap list certbot | grep -q "^certbot"; then
+        echo "Certbot is already installed"
+        else
+        echo "Installing Certbot"
+        sudo snap install --classic certbot
+        fi
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
       run: |
