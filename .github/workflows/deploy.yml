@@ -13,13 +13,24 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      # add  in package.json script   "removeold": "if [  -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
-      # - run: npm run removeold 
-      - run: npm run clone
-      - run: npm run finit
-      - run: npm run sync
-      - run: npm run clean
-      #delete /node modules
-      # - run: npm run clean2
-      - run: npm run njsi
-      - run: npm run bld
+      - run: sudo apt-get update && sudo apt-get upgrade
+      - run: set -e;  ! dpkg -s nginx > /dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y nginx
+  npm:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - run: sh
+    
+
+
+    #"updm":"sudo apt-get update && sudo apt-get upgrade",
+    #"ngnix": "if 'nginx instaled if not install'; fi && if 'exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
+    #"ndinst": "sudo apt-get inastll nodejs...",
+    #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
+    #"clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
+    #"finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then sudo git remote add focus-pocus.ro https://github.com/CHINuit/focus-pocus.ro.git; fi",
+    #"sync": "cd /var/www/focus-pocus.ro && sudo git config --global user.name --add Site && sudo git config --global user.email --add site@focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git config --global pull.rebase false && sudo git pull -f origin master",
+    #"clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
+    #"clean2": "if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules; fi",
+    #"njsi": "cd /var/www/focus-pocus.ro && sudo npm install  --omit dev --save && sudo npm audit fix --force",
+    #"bld": "sudo npm run start && sudo npm run build",    
