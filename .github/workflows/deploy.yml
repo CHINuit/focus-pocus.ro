@@ -1,6 +1,5 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
 name: Deploy
 
 on:
@@ -42,13 +41,15 @@ jobs:
             }
         }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
+        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
         if ! nginx -t; then
             echo "Nginx config test failed, correcting the config"
-            sudo nginx -t -c /etc/nginx/nginx.conf
+            exit 1
         fi
         echo "Reloading Nginx"
         sudo systemctl reload nginx
-        
+
+
     #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
     #"ndinst": "sudo apt-get inastll nodejs...",
     #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
