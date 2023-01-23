@@ -14,7 +14,44 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo apt-get update && sudo apt-get upgrade -y
-      - run: set -e;  ! dpkg -s nginx > /dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y nginx
+  SetupNginx:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure and Reload Nginx
+      run: |
+        if ! dpkg -s nginx > /dev/null 2>&1; then
+          sudo apt-get update
+          sudo apt-get install -y nginx
+        fi
+        if ! systemctl is-enabled nginx; then
+            echo "Nginx is not enabled, Enabling Nginx"
+            sudo systemctl enable nginx
+        fi
+        if ! systemctl is-active --quiet nginx; then
+            echo "Nginx is not running, Starting Nginx"
+            sudo systemctl start nginx
+        fi
+        if ! systemctl is-active --quiet nginx; then
+            echo "Failed to start Nginx, exiting"
+            exit 1
+        fi
+        if ! nginx -t; then
+            echo "Nginx config test failed, correcting the config"
+            sudo nginx -t -c /etc/nginx/nginx.conf
+        fi
+        echo "Reloading Nginx"
+        sudo systemctl reload nginx
+        echo "server {
+            listen 80;
+            server_name focus-poscus.ro;
+            root /var/www/focus-poscus.ro/build;
+            index index.html;
+            location / {
+                try_files $uri $uri/ =404;
+            }
+        }" | sudo tee /etc/nginx/sites-available/focus-poscus.ro.conf
+
   npm:
     runs-on: self-hosted
     steps:
