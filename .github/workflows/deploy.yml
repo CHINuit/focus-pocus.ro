@@ -66,11 +66,12 @@ jobs:
         }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
-        if [ -L /etc/nginx/sites-enabled/focus-pocus.ro ]; then
+        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/sites-enabled/
+        if [ -L /etc/nginx/sites-enabled/focus-pocus.ro.conf ]; then
         echo "Symbolic link already created"
         else
         echo "Creating symbolic link"
-        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro /etc/nginx/sites-enabled
+        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/sites-enabled
         fi
         if ! nginx -t; then
             echo "Nginx config test failed, correcting the config"
