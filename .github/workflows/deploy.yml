@@ -12,9 +12,14 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
+    - name: Remove and Clone
+      run: |
+        if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi
+        if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi
+    - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
-    - run: sudo apt-get update && sudo apt-get upgrade -y
-    -  run: |
+      run: |
+        sudo apt-get update && sudo apt-get upgrade -y
         if ! dpkg -s nginx > /dev/null 2>&1; then
           sudo apt-get update
           sudo apt-get install -y nginx
@@ -34,7 +39,7 @@ jobs:
         echo "server {
             listen 80;
             server_name focus-pocus.ro;
-            root /var/www/focus-pocus.ro/build;
+            root /var/www/focus-pocus.ro/build/;
             index index.html;
             location / {
                 try_files $uri $uri/ =404;
@@ -45,13 +50,13 @@ jobs:
             echo "Nginx config test failed, correcting the config"
             sudo nginx -t -c /etc/nginx/nginx.conf
         fi
+        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
         echo "Reloading Nginx"
         sudo systemctl reload nginx
-
+    #sudo snap install --classic certbot
     #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
     #"ndinst": "sudo apt-get inastll nodejs...",
     #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
-    #"clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
     #"finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then sudo git remote add focus-pocus.ro https://github.com/CHINuit/focus-pocus.ro.git; fi",
     #"sync": "cd /var/www/focus-pocus.ro && sudo git config --global user.name --add Site && sudo git config --global user.email --add site@focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git config --global pull.rebase false && sudo git pull -f origin master",
     #"clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
