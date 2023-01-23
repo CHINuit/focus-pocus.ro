@@ -13,7 +13,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt-get update && sudo apt-get upgrade
+      - run: sudo apt-get update && sudo apt-get upgrade -y
       - run: set -e;  ! dpkg -s nginx > /dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y nginx
   npm:
     runs-on: self-hosted
@@ -23,8 +23,7 @@ jobs:
     
 
 
-    #"updm":"sudo apt-get update && sudo apt-get upgrade",
-    #"ngnix": "if 'nginx instaled if not install'; fi && if 'exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
+    #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
     #"ndinst": "sudo apt-get inastll nodejs...",
     #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
     #"clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
