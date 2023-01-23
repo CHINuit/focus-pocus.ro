@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
-    - run: sudo apt-get update && sudo apt-get upgrade -y
-    -  run: |
+      run: |
+        sudo apt-get update && sudo apt-get upgrade -y
         if ! dpkg -s nginx > /dev/null 2>&1; then
           sudo apt-get update
           sudo apt-get install -y nginx
