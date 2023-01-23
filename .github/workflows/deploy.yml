@@ -65,12 +65,12 @@ jobs:
             }
         }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
+        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
+        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro /etc/nginx/sites-enabled
         if ! nginx -t; then
             echo "Nginx config test failed, correcting the config"
             sudo nginx -t -c /etc/nginx/nginx.conf
         fi
-        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
-        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro /etc/nginx/sites-enabled
         echo "Reloading Nginx"
         sudo systemctl reload nginx
     - uses: actions/checkout@v3
