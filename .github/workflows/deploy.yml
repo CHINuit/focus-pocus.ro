@@ -35,16 +35,6 @@ jobs:
         echo "Installing npm"
         sudo apt-get install npm -y
         fi
-    
-    - uses: actions/checkout@v3
-    - name: CertBot
-      run: |
-        if sudo snap list certbot | grep -q "^certbot"; then
-        echo "Certbot is already installed"
-        else
-        echo "Installing Certbot"
-        sudo snap install --classic certbot
-        fi
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
       run: |
@@ -82,10 +72,17 @@ jobs:
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
         echo "Reloading Nginx"
         sudo systemctl reload nginx
+    - uses: actions/checkout@v3
+    - name: CertBot
+      run: |
+        if sudo snap list certbot | grep -q "^certbot"; then
+        echo "Certbot is already installed"
+        else
+        echo "Installing Certbot"
+        sudo snap install --classic certbot
+        fi
 
-    #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
-    #"ndinst": "sudo apt-get inastll nodejs...",
-    #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
+  
     #"finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then sudo git remote add focus-pocus.ro https://github.com/CHINuit/focus-pocus.ro.git; fi",
     #"sync": "cd /var/www/focus-pocus.ro && sudo git config --global user.name --add Site && sudo git config --global user.email --add site@focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git config --global pull.rebase false && sudo git pull -f origin master",
     #"clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
