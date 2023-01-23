@@ -8,7 +8,7 @@ on:
     - master
 
 jobs:
-  SetupNginx:
+  Setup:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
@@ -80,6 +80,9 @@ jobs:
         else
         echo "Installing Certbot"
         sudo snap install --classic certbot
+        sudo ln -s /snap/bin/certbot /usr/bin/certbot
+        sudo certbot --nginx
+        sudo certbot certonly --nginx
         fi
 
   
