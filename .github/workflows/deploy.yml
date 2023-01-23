@@ -15,44 +15,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo apt-get update && sudo apt-get upgrade -y
       - name: Configure and Reload Nginx
-      - run: |
-        if ! dpkg -s nginx > /dev/null 2>&1; then
-          sudo apt-get update
-          sudo apt-get install -y nginx
-        fi
-        if ! systemctl is-enabled nginx; then
-            echo "Nginx is not enabled, Enabling Nginx"
-            sudo systemctl enable nginx
-        fi
-        if ! systemctl is-active --quiet nginx; then
-            echo "Nginx is not running, Starting Nginx"
-            sudo systemctl start nginx
-        fi
-        if ! systemctl is-active --quiet nginx; then
-            echo "Failed to start Nginx, exiting"
-            exit 1
-        fi
-        echo "server {
-            listen 80;
-            server_name focus-pocus.ro;
-            root /var/www/focus-pocus.ro/build;
-            index index.html;
-            location / {
-                try_files $uri $uri/ =404;
-            }
-        }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
-        sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
-        if ! nginx -t; then
-            echo "Nginx config test failed, correcting the config"
-            sudo nginx -t -c /etc/nginx/nginx.conf
-        fi
-        echo "Reloading Nginx"
-        sudo systemctl reload nginx
-
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v3
-    - name: Configure and Reload Nginx
       run: |
         if ! dpkg -s nginx > /dev/null 2>&1; then
           sudo apt-get update
@@ -86,3 +48,14 @@ jobs:
         fi
         echo "Reloading Nginx"
         sudo systemctl reload nginx
+        
+    #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
+    #"ndinst": "sudo apt-get inastll nodejs...",
+    #"removeold": "if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi",
+    #"clone": "if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi",
+    #"finit": "cd /var/www/focus-pocus.ro && if ! git remote | grep -q 'focus-pocus.ro'; then sudo git remote add focus-pocus.ro https://github.com/CHINuit/focus-pocus.ro.git; fi",
+    #"sync": "cd /var/www/focus-pocus.ro && sudo git config --global user.name --add Site && sudo git config --global user.email --add site@focus-pocus.ro && sudo git init && sudo git add . &&  sudo git commit --allow-empty -m 'synced' && sudo git stash save --keep-index && sudo git config --global pull.rebase false && sudo git pull -f origin master",
+    #"clean": "if [ -f /var/www/focus-pocus.ro/package-lock.json ]; then sudo rm -r /var/www/focus-pocus.ro/package-lock.json; fi",
+    #"clean2": "if [ -d /var/www/focus-pocus.ro/node_modules ]; then sudo rm -r /var/www/focus-pocus.ro/node_modules; fi",
+    #"njsi": "cd /var/www/focus-pocus.ro && sudo npm install  --omit dev --save && sudo npm audit fix --force",
+    #"bld": "sudo npm run start && sudo npm run build",    
