@@ -13,7 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo apt-get update && sudo apt-get upgrade -y
-       run: |
+  SetupNginx:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure and Reload Nginx
+      run: |
         if ! dpkg -s nginx > /dev/null 2>&1; then
           sudo apt-get update
           sudo apt-get install -y nginx
@@ -46,7 +51,11 @@ jobs:
         fi
         echo "Reloading Nginx"
         sudo systemctl reload nginx
-
+  npm:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - run: sh
 
     #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
     #"ndinst": "sudo apt-get inastll nodejs...",
