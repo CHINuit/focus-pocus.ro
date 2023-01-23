@@ -16,6 +16,16 @@ jobs:
       run: |
         if [ -d '/var/www/focus-pocus.ro' ]; then sudo rm -r /var/www/focus-pocus.ro; fi
         if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi
+   - uses: actions/checkout@v3
+    - name: Nodejs Inastall
+      run: |
+        if command -v node >/dev/null 2>&1; then
+          echo "Node.js is already installed"
+        else
+          echo "Installing Node.js version 16"
+          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+        fi
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
       run: |
