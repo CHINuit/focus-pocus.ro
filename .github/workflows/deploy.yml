@@ -34,7 +34,7 @@ jobs:
         echo "server {
             listen 80;
             server_name focus-pocus.ro;
-            root /var/www/focus-pocus.ro/build;
+            root /var/www/focus-pocus.ro/build/;
             index index.html;
             location / {
                 try_files $uri $uri/ =404;
@@ -48,6 +48,10 @@ jobs:
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
         echo "Reloading Nginx"
         sudo systemctl reload nginx
+    - uses: actions/checkout@v3
+    - name: Clone
+      run: |
+        if [ ! -d '/var/www/focus-pocus.ro' ]; then sudo git clone https://github.com/CHINuit/focus-pocus.ro /var/www/focus-pocus.ro; fi
 
     #"ngnix": "exist nginx.conf check content && exist conf.d focus-pocus.ro '; fi",
     #"ndinst": "sudo apt-get inastll nodejs...",
