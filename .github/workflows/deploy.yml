@@ -36,21 +36,21 @@ jobs:
             echo "Failed to start Nginx, exiting"
             exit 1
         fi
+        echo "server {
+            listen 80;
+            server_name focus-pocus.ro;
+            root /var/www/focus-pocus.ro/build;
+            index index.html;
+            location / {
+                try_files $uri $uri/ =404;
+            }
+        }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         if ! nginx -t; then
             echo "Nginx config test failed, correcting the config"
             sudo nginx -t -c /etc/nginx/nginx.conf
         fi
         echo "Reloading Nginx"
         sudo systemctl reload nginx
-        echo "server {
-            listen 80;
-            server_name focus-poscus.ro;
-            root /var/www/focus-poscus.ro/build;
-            index index.html;
-            location / {
-                try_files $uri $uri/ =404;
-            }
-        }" | sudo tee /etc/nginx/sites-available/focus-poscus.ro.conf
 
   npm:
     runs-on: self-hosted
