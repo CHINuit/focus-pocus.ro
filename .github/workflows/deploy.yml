@@ -65,7 +65,7 @@ jobs:
             location / {
                 try_files $uri $uri/ =404;
             }
-        }"" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
+        }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
         if [ -L /etc/nginx/sites-enabled/focus-pocus.ro.conf ]; then
