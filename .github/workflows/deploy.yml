@@ -82,7 +82,7 @@ jobs:
         echo "Line already exists"
         else
         echo "Adding line"
-        sudo -- sh -c "echo 'localhost focus-pocus.ro' >> /etc/hosts"
+        echo 'localhost focus-pocus.ro' | sudo tee -a /etc/hosts
         fi
 
         if ! nginx -t; then
