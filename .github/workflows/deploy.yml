@@ -39,6 +39,21 @@ jobs:
         echo "Installing express"
         npm install express
         fi
+        #!/bin/bash
+        # Check if the node process is running
+        if pgrep -f "node server.js" > /dev/null
+        then
+        # If it's running, kill it
+        echo "Killing existing process"
+        pkill -f "node server.js"
+        else
+        echo "No process found"
+        fi
+
+        # Start the new node process
+        echo "Starting new process"
+        node server.js
+
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
       run: |
