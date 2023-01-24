@@ -56,11 +56,11 @@ jobs:
             exit 1
         fi
         sudo rm -rf /etc/nginx/sites-available/*
-        echo "server {
+        echo "location /var/www/focus-pocus.ro/build;
+            server {
             listen 80;
             server_name focus-pocus.ro;
-            return 301 'https://$server_name$request_uri';
-            root /var/www/focus-pocus.ro/build;
+            location /var/www/focus-pocus.ro/build;
             index index.html;
             location / {
                 try_files $uri $uri/ =404;
