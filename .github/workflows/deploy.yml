@@ -35,6 +35,10 @@ jobs:
         echo "Installing npm"
         sudo apt-get install npm -y
         fi
+        if ! npm list express; then
+        echo "Installing express"
+        npm install express
+        fi
     - uses: actions/checkout@v3
     - name: Configure and Reload Nginx
       run: |
@@ -56,15 +60,14 @@ jobs:
             exit 1
         fi
         sudo rm -rf /etc/nginx/sites-available/*
-        echo "location /var/www/focus-pocus.ro/build;
-            server {
+        echo "server {
             listen 80;
             server_name focus-pocus.ro;
-            location /var/www/focus-pocus.ro/build;
+            root /var/www/focus-pocus.ro;
             index index.html;
-            location / {
+            location /{
                 try_files $uri $uri/ =404;
-            }
+            } 
         }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
