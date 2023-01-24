@@ -68,9 +68,14 @@ jobs:
         }" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
-        if [ ! -L /etc/nginx/sites-enabled/focus-pocus.ro.conf ]; then
+        sudo rm -rf /etc/nginx/sites-enabled/*
+        if [ -f /etc/nginx/sites-enabled/focus-pocus.ro.conf ]; then
+        echo "File already exists"
+        elif [ -f /etc/nginx/sites-available/focus-pocus.ro.conf ]; then
         echo "Creating symbolic link"
-        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/sites-enabled
+        sudo ln -s /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/sites-enabled/focus-pocus.ro.conf
+        else
+        echo "File /etc/nginx/sites-available/focus-pocus.ro.conf not found"
         fi
         
 
