@@ -55,6 +55,7 @@ jobs:
             echo "Failed to start Nginx, exiting"
             exit 1
         fi
+        sudo rm -r /etc/nginx/sites-available/*
         echo "server {
             listen 80;
             server_name focus-pocus.ro;
@@ -67,7 +68,6 @@ jobs:
         }"" | sudo tee /etc/nginx/sites-available/focus-pocus.ro.conf
         sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
         sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/conf.d/
-        sudo cp /etc/nginx/sites-available/focus-pocus.ro.conf /etc/nginx/sites-enabled/
         if [ -L /etc/nginx/sites-enabled/focus-pocus.ro.conf ]; then
         echo "Removing existing symbolic link"
          sudo rm -r /etc/nginx/sites-enabled/*
