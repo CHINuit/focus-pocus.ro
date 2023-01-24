@@ -78,7 +78,12 @@ jobs:
         echo "File /etc/nginx/sites-available/focus-pocus.ro.conf not found"
         fi
         echo "Bind LocalHost to Domain"
+        if grep -q "127.0.0.1 focus-pocus.ro" /etc/hosts; then
+        echo "Line already exists"
+        else
+        echo "Adding line"
         sudo -- sh -c "echo '127.0.0.1 focus-pocus.ro' >> /etc/hosts"
+        fi
 
         if ! nginx -t; then
             echo "Nginx config test failed, correcting the config"
